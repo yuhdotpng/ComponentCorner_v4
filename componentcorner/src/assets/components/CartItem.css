@@ -1,0 +1,20 @@
+
+.remove-btn {
+    display: inline;
+    margin-left: 50%;
+    padding: 1%;
+    background-color: #ed4546;
+    color: white;
+    margin-bottom: .5%;
+    
+}
+.name {
+    display: inline;
+    text-align: left;
+}
+.cart-price {
+    display: inline;
+    text-align: left;
+    padding: 3%;
+    color: #9b9ea0
+}

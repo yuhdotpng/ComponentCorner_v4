@@ -1,0 +1,29 @@
+.product-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  
+}
+img {
+  width: 100%
+}
+.container {
+  padding: 1%
+}
+.product-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.price{
+  font-weight: bold;
+  color: #009564;
+  padding: 3%
+}
+.description{
+  color: #a3a7af;
+  padding-top: 1%
+}
+h3 {
+  padding:1%
+}
