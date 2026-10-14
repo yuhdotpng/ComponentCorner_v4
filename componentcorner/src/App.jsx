@@ -22,13 +22,13 @@ function App() {
     try { 
       localStorage.setItem("cart", JSON.stringify(cart)); } 
     catch { 
-      console.warn('Could not save cart to localStorage:', error); }
+      console.warn('Could not save cart to localStorage:'); }
     },
   [cart]);
 
   function addToCart(product) {
     setCart(previousCart => [...previousCart, product]);
-    console.log(cart)
+    console.log(product.id)
   };
 
   const removeFromCart = (indexToRemove) => { 

@@ -4,14 +4,14 @@ function Header({name, page1, cart_count}) {
     return (
         <div className="header">
             <Link to={`/`}>
-            <a href="#default"><h2>{name}</h2></a>
+            <h2>{name}</h2>
             </Link>
             <div className="header-right">
                 <Link to = '/products'>
-                <a className="active">{page1}</a>
+                <p className="active">{page1}</p>
                 </Link>
                 <Link to = '/cart'>
-                <a>Cart</a>
+                <p>Cart</p>
                 </Link>
                 {cart_count > 0 && (
                 <div className="cart-container"> 
