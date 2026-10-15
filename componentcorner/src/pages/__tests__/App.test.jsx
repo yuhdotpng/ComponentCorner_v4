@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import App from '../../App';
-import { BrowserRouter} from 'react-router-dom';
+
 
 
 
@@ -14,12 +14,15 @@ const localStorageMock = {
 
 describe('App localStorage Integration', () => {
   beforeEach(() => {
-    // Clear all mock calls before each test
-    localStorageMock.getItem.mockClear();
-    localStorageMock.setItem.mockClear();
-    localStorageMock.removeItem.mockClear();
-    localStorageMock.clear.mockClear();
-  });
+  vi.resetAllMocks();
+  vi.stubGlobal('localStorage', localStorageMock);
+  localStorageMock.getItem.mockReturnValue(null);
+  window.history.replaceState({}, '', '/');
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
   
 test('loads products from localStorage on component mount', () => {
@@ -33,20 +36,17 @@ test('loads products from localStorage on component mount', () => {
   render(<App />);
   
   // Assert - verify localStorage was checked
-  expect(localStorageMock.getItem).toHaveBeenCalledWith('products');
+  expect(localStorageMock.getItem).toHaveBeenCalledWith('cart');
 });
 
-test('saves products to localStorage when cart changes', async () => {
-  // Mock empty initial state
-  localStorageMock.getItem.mockReturnValue([]);
-  
+test('saves an empty cart on mount', async () => {
   render(<App />);
-  
-  // Wait for useEffect to complete initial save
+
   await waitFor(() => {
-    expect(localStorageMock.setItem).toHaveBeenCalledWith('products', []);
+    expect(localStorageMock.setItem).toHaveBeenCalledWith('cart', '[]');
   });
 });
+
 
 test('persists posts across component remounts', async () => {
   // Initial render with empty localStorage
@@ -59,14 +59,14 @@ test('persists posts across component remounts', async () => {
   
   // Verify save happened
   await waitFor(() => {
-    expect(localStorageMock.setItem).toHaveBeenCalledWith('products', '[]');
+    expect(localStorageMock.setItem).toHaveBeenCalledWith('cart', '[]');
   });
   
-  // Unmount component  (simulate closing a browser tab)
+  // Unmount component (simulate closing a browser tab)
   unmount();
   
   // Mock localStorage returning the saved data
-  localStorageMock.getItem.mockReturnValue(JSON.stringify(testProducts));
+  localStorageMock.getItem.mockReturnValue(JSON.stringify(testProduct));
   
   // Re-render component (simulating user openning the app again)
   render(<App />);
