@@ -10,19 +10,15 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 function App() {
 
   const [cart, setCart] = useState(() => {
-    const savedItems = localStorage.getItem('cart');
-    return savedItems ? JSON.parse(savedItems) :(
-      <div className='empty-cart'> 
-          <h2> Your cart is empty! </h2>
-        </div>
-    ) ;
+  const savedItems = localStorage.getItem('cart');
+  return savedItems ? JSON.parse(savedItems) : [];
   });
 
   useEffect(() => { 
     try { 
       localStorage.setItem("cart", JSON.stringify(cart)); } 
     catch { 
-      console.warn('Could not save cart to localStorage:'); }
+      console.warn('Could not save cart to localStorage'); }
     },
   [cart]);
 
