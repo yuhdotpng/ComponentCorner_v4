@@ -27,11 +27,10 @@ describe('ProductCard', () => {
   });
   test('calls onAddToCart when add to cart button is clicked', () => {
   const mockAdd = vi.fn();
-  
+  const product = { id: 1, name: 'Test Product', price: 1.99 };
   renderWithRouter(
-      <ProductCard 
-        name="Test Product" 
-        price= {1.99}
+      <ProductCard {...product}
+        product={product}
         onAddToCart= {mockAdd}
         >
       </ProductCard>
@@ -42,5 +41,7 @@ describe('ProductCard', () => {
   
    
   expect(mockAdd).toHaveBeenCalledTimes(1);
+  expect(mockAdd).toHaveBeenCalledWith(product)
+  
 });
 });
